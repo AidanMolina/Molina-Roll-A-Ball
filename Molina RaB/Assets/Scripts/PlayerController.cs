@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
 
+    private Vector3 scale = new Vector3(0.2f, 0.2f, 0.2f);
+    private Vector3 checkPoint = new Vector3(0f, 0f, 0f);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,9 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
+
+        checkPoint = gameObject.transform.position;
+        checkPoint.y += 5f;
     }
 
     void OnMove(InputValue movementValue){
@@ -42,6 +48,11 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
         rb.AddForce(movement * speed);
+
+        if(gameObject.transform.position.y < -10){
+            gameObject.transform.position = checkPoint;
+            rb.velocity = Vector3.zero;
+        }
     }
 
     void OnTriggerEnter(Collider other){
@@ -50,6 +61,8 @@ public class PlayerController : MonoBehaviour
             count++;
 
             SetCountText();
+
+            gameObject.transform.localScale += scale;
         }
     }
 }

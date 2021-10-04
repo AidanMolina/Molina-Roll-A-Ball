@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pickup
+  - Unpickup
+  - Checkpoint
+  - Goal
   layers:
   - Default
   - TransparentFX
